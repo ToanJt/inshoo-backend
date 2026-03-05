@@ -11,13 +11,10 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-# Build Medusa (output vào .medusa/server)
 RUN npx medusa build
 
-# Copy medusa-config đã compile ra /app để migrate tìm thấy
-RUN cp .medusa/server/medusa-config.js . 2>/dev/null || \
-    cp .medusa/server/src/medusa-config.js . 2>/dev/null || \
-    echo "medusa-config not found in build output, will use ts-node"
+# Debug: xem toàn bộ structure sau khi build
+RUN find .medusa -type f -name "*.js" | head -30
 
 EXPOSE 9000
 
