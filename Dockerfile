@@ -1,5 +1,4 @@
-﻿@"
-FROM node:20-alpine
+﻿FROM node:20-alpine
 
 WORKDIR /app
 
@@ -16,5 +15,6 @@ RUN npx medusa build
 
 WORKDIR /app/.medusa/server
 
+EXPOSE 9000
+
 CMD ["sh", "-c", "npx medusa db:migrate && npx medusa start"]
-"@ | Out-File -FilePath Dockerfile -Encoding utf8 -NoNewline
