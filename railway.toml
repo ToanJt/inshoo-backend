@@ -1,0 +1,11 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm ci --production=false"
+
+[deploy]
+startCommand = "npx medusa migrations run && npx medusa start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+[build.nixpacks]
+aptPkgs = ["libatomic1"]
