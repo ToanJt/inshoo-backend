@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "npm run build"
+buildCommand = "npm ci --legacy-peer-deps && npx medusa build"
 
 [deploy]
 startCommand = "npx medusa db:migrate && npx medusa start"
