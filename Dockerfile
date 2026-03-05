@@ -12,5 +12,4 @@ RUN npm run build
 
 EXPOSE 9000
 
-# ← Đổi "migrations run" thành "db:migrate"
 CMD ["sh", "-c", "npx medusa db:migrate && npx medusa start"]
