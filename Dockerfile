@@ -13,8 +13,6 @@ COPY . .
 
 RUN npx medusa build
 
-WORKDIR /app/.medusa/server
-
 EXPOSE 9000
 
-CMD ["sh", "-c", "npx medusa db:migrate && npx medusa start"]
+CMD ["sh", "-c", "cd /app && npx medusa db:migrate && npx medusa start"]
