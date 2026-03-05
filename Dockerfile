@@ -11,11 +11,6 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN npx medusa build
-
-# Debug: xem toàn bộ structure sau khi build
-RUN find .medusa -type f -name "*.js" | head -30
-
 EXPOSE 9000
 
-CMD ["sh", "-c", "npx medusa db:migrate && npx medusa start"]
+CMD ["sh", "-c", "cd /app/.medusa/server && npx medusa db:migrate && npx medusa start"]
