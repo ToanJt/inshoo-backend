@@ -25,6 +25,6 @@ RUN npm ci --legacy-peer-deps
 
 ENV NODE_ENV=production
 
-EXPOSE 9000
+EXPOSE 8080
 
 CMD ["sh", "-c", "npx medusa db:migrate && node ./node_modules/@medusajs/medusa/dist/commands/start.js"]

@@ -3,6 +3,7 @@ builder = "NIXPACKS"
 buildCommand = "npm ci --legacy-peer-deps && npx medusa build"
 
 [deploy]
-startCommand = "npx medusa db:migrate && PORT=$PORT npx medusa start"
+[deploy]
+startCommand = "npx medusa db:migrate && node .medusa/server/index.js"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
