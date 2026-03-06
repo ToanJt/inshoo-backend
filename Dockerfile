@@ -8,7 +8,7 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN npx medusa build --no-admin
+RUN npm run build
 
 ENV NODE_ENV=production
 EXPOSE 10000
