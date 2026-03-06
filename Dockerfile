@@ -27,4 +27,4 @@ ENV NODE_ENV=production
 
 EXPOSE 9000
 
-CMD ["sh", "-c", "npx medusa db:migrate && npx medusa start --host 0.0.0.0"]
+CMD ["sh", "-c", "npx medusa db:migrate && node ./node_modules/@medusajs/medusa/dist/commands/start.js"]
