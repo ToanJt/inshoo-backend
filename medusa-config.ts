@@ -12,9 +12,9 @@ module.exports = defineConfig({
       storeCors:
         "http://localhost:8000,https://moonlit-cupcake-1a9c76.netlify.app",
       adminCors:
-        "http://localhost:5173,https://moonlit-cupcake-1a9c76.netlify.app",
+        "https://inshoo-backend.onrender.com,https://moonlit-cupcake-1a9c76.netlify.app",
       authCors:
-        "http://localhost:5173,http://localhost:8000,https://moonlit-cupcake-1a9c76.netlify.app",
+        "http://localhost:8000,https://moonlit-cupcake-1a9c76.netlify.app",
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
