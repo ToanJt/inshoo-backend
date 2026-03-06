@@ -4,9 +4,7 @@ loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 module.exports = defineConfig({
   admin: {
-    disable: process.env.DISABLE_ADMIN === "true" || false,
-    backendUrl:
-      process.env.MEDUSA_BACKEND_URL || "https://inshoo-backend.onrender.com",
+    disable: true,
   },
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
