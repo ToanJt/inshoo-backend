@@ -3,16 +3,19 @@
 WORKDIR /app
 
 ENV NPM_CONFIG_CACHE=/tmp/.npm
-ENV NODE_ENV=production
 
 COPY package*.json ./
 
+# Lúc cài đặt, KHÔNG để production để npm cài cả devDependencies (cần thiết cho việc build Admin)
 RUN npm install --legacy-peer-deps
 
 COPY . .
 
-# BẮT BUỘC: Chạy lệnh build để biên dịch code và sinh ra thư mục .medusa/server
+# Build backend và giao diện Admin
 RUN npm run build
+
+# Chỉ đặt môi trường production SAU KHI đã build xong mọi thứ
+ENV NODE_ENV=production
 
 EXPOSE 10000
 
