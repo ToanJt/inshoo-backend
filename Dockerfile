@@ -8,7 +8,6 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-# Thêm --no-admin để bỏ qua build admin UI
 RUN npx medusa build --no-admin
 
 ENV NODE_ENV=production
