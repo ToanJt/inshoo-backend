@@ -4,19 +4,20 @@ WORKDIR /app
 
 ENV NPM_CONFIG_CACHE=/tmp/.npm
 
+# 1. Copy file package và cài đặt TẤT CẢ thư viện (kể cả devDependencies để build Admin)
 COPY package*.json ./
-
-# Lúc cài đặt, KHÔNG để production để npm cài cả devDependencies (cần thiết cho việc build Admin)
 RUN npm install --legacy-peer-deps
 
+# 2. Copy mã nguồn
 COPY . .
 
-# Build backend và giao diện Admin
+# 3. Chạy build để sinh ra lõi backend VÀ thư mục giao diện Admin
 RUN npm run build
 
-# Chỉ đặt môi trường production SAU KHI đã build xong mọi thứ
+# 4. BẮT BUỘC: Chỉ đặt môi trường production SAU KHI đã build xong
 ENV NODE_ENV=production
 
 EXPOSE 10000
 
-CMD ["sh", "-c", "cd /app/.medusa/server && npx medusa db:migrate && npx medusa start"]
+# 5. Chạy lệnh trực tiếp từ thư mục gốc /app
+CMD ["sh", "-c", "npx medusa db:migrate && npm run start"]

@@ -19,4 +19,10 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
   },
+  admin: {
+    // Ép hệ thống nhận giá trị false để luôn hiển thị giao diện Admin
+    disable: process.env.DISABLE_ADMIN === "true" || false,
+    backendUrl:
+      process.env.MEDUSA_BACKEND_URL || "https://inshoo-backend.onrender.com",
+  },
 });
