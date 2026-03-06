@@ -6,6 +6,7 @@ module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     http: {
+      port: process.env.PORT || 9000,
       storeCors:
         "http://localhost:3000,https://moonlit-cupcake-1a9c76.netlify.app",
       adminCors:
