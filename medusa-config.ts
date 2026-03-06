@@ -9,7 +9,7 @@ module.exports = defineConfig({
       storeCors:
         "http://localhost:3000,https://moonlit-cupcake-1a9c76.netlify.app",
       adminCors:
-        "https://your-app.up.railway.app,https://moonlit-cupcake-1a9c76.netlify.app",
+        "inshoo-backend-production.up.railway.app,https://moonlit-cupcake-1a9c76.netlify.app",
       authCors:
         "http://localhost:3000,https://moonlit-cupcake-1a9c76.netlify.app",
 
