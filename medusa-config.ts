@@ -4,7 +4,9 @@ loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 module.exports = defineConfig({
   admin: {
-    disable: true,
+    disable: process.env.DISABLE_ADMIN === "true" || false,
+    backendUrl:
+      process.env.MEDUSA_BACKEND_URL || "https://inshoo-backend.onrender.com",
   },
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
@@ -18,11 +20,5 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
-  },
-  admin: {
-    // Ép hệ thống nhận giá trị false để luôn hiển thị giao diện Admin
-    disable: process.env.DISABLE_ADMIN === "true" || false,
-    backendUrl:
-      process.env.MEDUSA_BACKEND_URL || "https://inshoo-backend.onrender.com",
   },
 });
