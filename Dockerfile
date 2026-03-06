@@ -8,6 +8,7 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
+# Build cả backend lẫn admin UI
 RUN npm run build
 
 ENV NODE_ENV=production
