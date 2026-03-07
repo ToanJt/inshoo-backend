@@ -12,4 +12,5 @@ COPY . .
 ENV NODE_ENV=production
 EXPOSE 10000
 
+
 CMD ["sh", "-c", "npx medusa db:migrate && npm run start"]
