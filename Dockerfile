@@ -8,7 +8,7 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-# KHÔNG build lại — dùng build đã có từ local
+# Không build lại, dùng .medusa đã build sẵn từ local
 ENV NODE_ENV=production
 EXPOSE 10000
 
