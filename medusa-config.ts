@@ -2,7 +2,7 @@ import { defineConfig } from "@medusajs/framework/utils";
 
 module.exports = defineConfig({
   admin: {
-    disable: false,
+    disable: true,
   },
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
