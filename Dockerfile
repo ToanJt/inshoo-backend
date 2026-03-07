@@ -8,8 +8,8 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-# Build Medusa (tạo .medusa/server và admin)
-RUN npx medusa build
+# Build cả backend lẫn admin UI
+RUN npm run build
 
 ENV NODE_ENV=production
 EXPOSE 10000
