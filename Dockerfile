@@ -8,9 +8,7 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-# Build cả backend lẫn admin UI
-RUN npm run build
-
+# KHÔNG build lại — dùng build đã có từ local
 ENV NODE_ENV=production
 EXPOSE 10000
 
