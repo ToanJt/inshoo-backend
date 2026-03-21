@@ -14,11 +14,16 @@ function optimizeCloudinaryUrl(url: string): string {
 let extractorInstance: any = null;
 async function getExtractor() {
   if (!extractorInstance) {
-    // Dynamic import — bắt buộc vì @xenova/transformers là ESM module
     const transformers = await (Function('return import("@xenova/transformers")')() as Promise<any>);
+    
+    // Ép dùng WASM thay vì native ONNX — fix lỗi Alpine Linux
+    transformers.env.backends.onnx.wasm.proxy = false;
+    transformers.env.backends.onnx.wasm.numThreads = 1;
+
     extractorInstance = await transformers.pipeline(
       "image-feature-extraction",
       "Xenova/clip-vit-base-patch32",
+      { device: "wasm" }, // thêm dòng này
     );
   }
   return extractorInstance;
