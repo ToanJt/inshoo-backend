@@ -1,8 +1,6 @@
-
 // src/subscribers/product-created.ts
 import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework/subscribers";
 import { createClient } from "@supabase/supabase-js";
-import { pipeline } from "@xenova/transformers";
 
 export const config: SubscriberConfig = {
   event: ["product.created", "product.updated"],
@@ -16,7 +14,9 @@ function optimizeCloudinaryUrl(url: string): string {
 let extractorInstance: any = null;
 async function getExtractor() {
   if (!extractorInstance) {
-    extractorInstance = await pipeline(
+    // Dynamic import — bắt buộc vì @xenova/transformers là ESM module
+    const transformers = await (Function('return import("@xenova/transformers")')() as Promise<any>);
+    extractorInstance = await transformers.pipeline(
       "image-feature-extraction",
       "Xenova/clip-vit-base-patch32",
     );
@@ -38,6 +38,7 @@ export default async function handleProductChanged({
   try {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // 1. Load embeddings hien co
     const { data: blob } = await supabase.storage
       .from("embeddings")
       .download("products.json");
@@ -45,11 +46,13 @@ export default async function handleProductChanged({
       ? JSON.parse(await blob.text())
       : {};
 
+    // 2. Bo qua neu da co embedding
     if (existing[data.id]) {
       console.log(`[Subscriber] Skip — ${data.id} da co embedding`);
       return;
     }
 
+    // 3. Fetch thong tin san pham de lay URL anh
     const medusaUrl = `http://localhost:${process.env.PORT ?? 10000}`;
     const medusaKey = process.env.MEDUSA_PUBLISHABLE_KEY;
 
@@ -65,6 +68,7 @@ export default async function handleProductChanged({
       return;
     }
 
+    // 4. Tao embedding
     const extractor = await getExtractor();
     const output = await extractor(
       optimizeCloudinaryUrl(rawUrl),
@@ -73,6 +77,7 @@ export default async function handleProductChanged({
 
     existing[data.id] = Array.from(output.data as Float32Array);
 
+    // 5. Upload len Supabase
     await supabase.storage.from("embeddings").upload(
       "products.json",
       new Blob([JSON.stringify(existing)], { type: "application/json" }),
